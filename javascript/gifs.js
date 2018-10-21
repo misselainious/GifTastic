@@ -4,42 +4,52 @@ var subjectArray = ["wedding", "birthday", "St. Patrick's Day", "Hanukkah"];
 
 
 
-    var holiday = $(this).attr("data-holiday");
+    
 
-    //create queryURL for Holidays
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-    holiday + "&api_key=XwdmbLYAnmKxNb9IY2yLPMMGlo5Sk2VL";
+
+
+    function displayGif(){
+
+        var holiday = $(this).attr("data-name");
+            //create queryURL for Holidays
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + holiday + "&api_key=XwdmbLYAnmKxNb9IY2yLPMMGlo5Sk2VL";
 
     $.ajax({
         url: queryURL,
         method: "GET"
       })
-
-      
       // After data comes back from the request
       .then(function(response) {
-        console.log(queryURL);
-        console.log(response);
-
-        var holidayDiv = $("<div class='holiday'>");
+        console.log("queryURL: " + queryURL);
+        console.log("var response: " + response);
         var rating = response.Rated;
+        var results = response.data;
+
+        for(var i=0; i<results.length; i++){
+        var holidayDiv = $("<div>");
+
           // Creating an element to have the rating displayed
           var rate = $("<p>").text("Rating: " + rating);
 
-          // Displaying the rating
-          holidayDiv.prepend(rate);
+
+
+
           // Putting the gif above the previous gifs
-          $("#gifArea").prepend(holidayDiv);
-          
-        var results = response.data;
+         
+      
+          var gifImage = $("<img>");
 
-
+          gifImage.attr("src", results[i].images.fixed_height.url);
+// Displaying the rating
+ holidayDiv.append(rate);
+holidayDiv.append(gifImage);
+$("#gifArea").prepend(holidayDiv);
+        }  //End of for loop
       });  //End of .then function
+    }
 
 
-
-
-
+//Making buttons for holiday array
     function renderButtons(){
         //So we don't have repeating buttons
         $("#buttonDiv").empty();
@@ -52,6 +62,19 @@ var subjectArray = ["wedding", "birthday", "St. Patrick's Day", "Hanukkah"];
             $("#buttonDiv").append(b); 
         }
     }
+
+    $("#addHoliday").on("click", function(event){
+        event.preventDefault();
+
+        var newHoliday = $("#holidayText").val().trim();
+
+        subjectArray.push(newHoliday);
+
+        renderButtons();
+        $("#holidayText").text("");
+    });
+
+    $(document).on("click", ".btn-light", displayGif);
 
     renderButtons();
 }); //End document.ready
