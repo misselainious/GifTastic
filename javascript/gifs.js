@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-var subjectArray = ["wedding", "birthday", "St. Patrick's Day", "Hanukkah"];
+var subjectArray = ["Wedding", "Birthday", "Halloween", "Hanukkah"];
 
 
 
@@ -12,7 +12,7 @@ var subjectArray = ["wedding", "birthday", "St. Patrick's Day", "Hanukkah"];
 
         var holiday = $(this).attr("data-name");
             //create queryURL for Holidays
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + holiday + "&api_key=XwdmbLYAnmKxNb9IY2yLPMMGlo5Sk2VL";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + holiday + "&api_key=XwdmbLYAnmKxNb9IY2yLPMMGlo5Sk2VL&limit=5";
 
     $.ajax({
         url: queryURL,
@@ -20,23 +20,18 @@ var subjectArray = ["wedding", "birthday", "St. Patrick's Day", "Hanukkah"];
       })
       // After data comes back from the request
       .then(function(response) {
-        console.log("queryURL: " + queryURL);
-        console.log("var response: " + response);
         var rating = response.Rated;
         var results = response.data;
+        console.log("var rated: " + response.Rated);
 
         for(var i=0; i<results.length; i++){
         var holidayDiv = $("<div>");
 
           // Creating an element to have the rating displayed
-          var rate = $("<p>").text("Rating: " + rating);
-
-
-
+          var rate = $("<p>").text("Rating: " + results[i].rating);
 
           // Putting the gif above the previous gifs
-         
-      
+        
           var gifImage = $("<img>");
 
           gifImage.attr("src", results[i].images.fixed_height.url);
