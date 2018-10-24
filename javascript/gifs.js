@@ -4,10 +4,6 @@ var subjectArray = ["Wedding", "Birthday", "Halloween", "Hanukkah"];
 
 
 
-    
-
-
-
     function displayGif(){
 
         var holiday = $(this).attr("data-name");
@@ -35,9 +31,11 @@ var subjectArray = ["Wedding", "Birthday", "Halloween", "Hanukkah"];
           var gifImage = $("<img>");
 
           gifImage.attr("src", results[i].images.fixed_height.url);
+
 // Displaying the rating
  holidayDiv.append(rate);
 holidayDiv.append(gifImage);
+holidayDiv.addClass("gifResult");
 $("#gifArea").prepend(holidayDiv);
         }  //End of for loop
       });  //End of .then function
@@ -59,14 +57,15 @@ $("#gifArea").prepend(holidayDiv);
     }
 
     $("#addHoliday").on("click", function(event){
+        
         event.preventDefault();
 
         var newHoliday = $("#holidayText").val().trim();
 
         subjectArray.push(newHoliday);
-
+ 
         renderButtons();
-        $("#holidayText").text("");
+        
     });
 
     $(document).on("click", ".btn-light", displayGif);

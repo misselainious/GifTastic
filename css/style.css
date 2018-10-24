@@ -1,0 +1,21 @@
+body{
+    background-color: rgb(225, 241, 241);
+}
+#gifArea{
+    display: block;
+    float: left;
+}
+.gifResult{
+    float: left;
+    margin: 10px;
+}
+.headerimg{
+height: 200px;
+width: 200px;
+object-fit: cover;
+padding: 5px;
+margin: 10px;
+}
+.btn{
+    margin: 5px;
+}
