@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-var subjectArray = ["Wedding", "Birthday", "Halloween", "Hanukkah"];
+var topics = ["Wedding", "Birthday", "Halloween", "Hanukkah"];
 
 
 
@@ -46,7 +46,7 @@ $("#gifArea").prepend(holidayDiv);
     function renderButtons(){
         //So we don't have repeating buttons
         $("#buttonDiv").empty();
-        for (holiday of subjectArray){
+        for (holiday of topics){
             //make button
             var b = $("<button>");
             b.addClass("btn btn-light");
@@ -62,9 +62,13 @@ $("#gifArea").prepend(holidayDiv);
 
         var newHoliday = $("#holidayText").val().trim();
 
-        subjectArray.push(newHoliday);
+        topics.push(newHoliday);
+
+        $("#holidayText").val("");
  
         renderButtons();
+
+        
         
     });
 
